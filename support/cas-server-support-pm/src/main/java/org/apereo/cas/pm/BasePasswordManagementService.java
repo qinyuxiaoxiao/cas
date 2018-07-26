@@ -69,16 +69,6 @@ public class BasePasswordManagementService implements PasswordManagementService 
                 return null;
             }
 
-            val holder = ClientInfoHolder.getClientInfo();
-            if (!claims.getStringClaimValue("origin").equals(holder.getServerIpAddress())) {
-                LOGGER.error("Token origin server IP address does not match CAS");
-                return null;
-            }
-            if (!claims.getStringClaimValue("client").equals(holder.getClientIpAddress())) {
-                LOGGER.error("Token client IP address does not match CAS");
-                return null;
-            }
-
             if (claims.getExpirationTime().isBefore(NumericDate.now())) {
                 LOGGER.error("Token has expired.");
                 return null;
